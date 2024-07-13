@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.yayakm.config;
+package io.github.yayakm.config;
 
-import com.github.yayakm.util.Length;
+import io.github.yayakm.util.Length;
 
 /**
  * Represents various properties of an automaton, including state count, finiteness,

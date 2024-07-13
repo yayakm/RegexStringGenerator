@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.yayakm.config;
+package io.github.yayakm.config;
 
-import com.github.yayakm.core.RegexStringGenerator;
+import io.github.yayakm.core.RegexStringGenerator;
 
 import java.util.Random;
 

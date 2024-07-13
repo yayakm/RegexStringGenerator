@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.yayakm;
+package io.github.yayakm;
 
-import com.github.yayakm.config.AutomatonHandler;
-import com.github.yayakm.config.AutomatonProperties;
-import com.github.yayakm.core.RegexStringGenerator;
-import com.github.yayakm.exception.RegexStringGeneratorException;
+import io.github.yayakm.config.AutomatonHandler;
+import io.github.yayakm.config.AutomatonProperties;
+import io.github.yayakm.core.RegexStringGenerator;
+import io.github.yayakm.exception.RegexStringGeneratorException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

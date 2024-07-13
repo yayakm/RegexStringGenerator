@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.yayakm;
+package io.github.yayakm;
 
-import com.github.yayakm.config.RandomTextGeneratorBuilder;
-import com.github.yayakm.core.RegexStringGenerator;
+import io.github.yayakm.config.RandomTextGeneratorBuilder;
+import io.github.yayakm.core.RegexStringGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;

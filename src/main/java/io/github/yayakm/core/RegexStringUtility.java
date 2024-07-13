@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.yayakm.core;
+package io.github.yayakm.core;
 
-import com.github.yayakm.config.AutomatonProperties;
+import io.github.yayakm.config.AutomatonProperties;
 
 import java.util.Random;
 

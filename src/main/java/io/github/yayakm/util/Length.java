@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.yayakm.util;
+package io.github.yayakm.util;
 
 /**
  * Represents a range of lengths with a minimum and maximum.
