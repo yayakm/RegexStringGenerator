@@ -35,7 +35,7 @@ public class Application {
         // Create a generator with specific regex and length constraints using a builder pattern.
         StringGenerator generator = RandomStringGeneratorBuilder.builder()
                 .setRegExp("[a-z]{10}")
-                .setMaxLength(15)
+                .setGlobalMaxLength(15)
                 .setRandom(new Random())
                 .build();
 
@@ -59,6 +59,6 @@ public class Application {
         // Example for generating a very large text, commented out to avoid execution delays or memory issues.
         // Uncomment the following lines to test with very large lengths.
         RegexStringGenerator generator4 = new RegexStringGenerator("[0-9]{1000}-[0-9]{50}");
-        System.out.println(generator4.generateString());
+        System.out.println(generator4.generateString(1051,1051));
     }
 }

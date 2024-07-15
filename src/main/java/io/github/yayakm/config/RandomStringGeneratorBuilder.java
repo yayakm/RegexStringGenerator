@@ -62,7 +62,7 @@ public class RandomStringGeneratorBuilder {
      * @param value The maximum length of the text.
      * @return The builder instance to continue the building process.
      */
-    public RandomStringGeneratorBuilder setMaxLength(int value) {
+    public RandomStringGeneratorBuilder setGlobalMaxLength(int value) {
         this.automatonHandler.setGlobalMaxLength(value);
         return this;
     }
@@ -73,7 +73,7 @@ public class RandomStringGeneratorBuilder {
      * @param value The minimum length of the text.
      * @return The builder instance to continue the building process.
      */
-    public RandomStringGeneratorBuilder setMinLength(int value) {
+    public RandomStringGeneratorBuilder setGlobalMinLength(int value) {
         this.automatonHandler.setGlobalMinLength(value);
         return this;
     }

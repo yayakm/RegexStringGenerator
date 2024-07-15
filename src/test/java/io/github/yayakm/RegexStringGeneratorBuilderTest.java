@@ -38,8 +38,8 @@ class RegexStringGeneratorBuilderTest {
 
         RegexStringGenerator generator = RandomStringGeneratorBuilder.builder()
                 .setRegExp(regex)
-                .setMinLength(minLength)
-                .setMaxLength(maxLength)
+                .setGlobalMinLength(minLength)
+                .setGlobalMaxLength(maxLength)
                 .setRandom(random)
                 .build();
 
@@ -56,8 +56,8 @@ class RegexStringGeneratorBuilderTest {
 
         RegexStringGenerator generator = RandomStringGeneratorBuilder.builder()
                 .setRegExp(regex)
-                .setMinLength(minLength)
-                .setMaxLength(maxLength)
+                .setGlobalMinLength(minLength)
+                .setGlobalMaxLength(maxLength)
                 .build();
 
         String generatedText = generator.generateString(minLength, maxLength);
@@ -75,8 +75,8 @@ class RegexStringGeneratorBuilderTest {
 
         RegexStringGenerator generator = RandomStringGeneratorBuilder.builder()
                 .setRegExp(regex)
-                .setMinLength(minLength)
-                .setMaxLength(maxLength)
+                .setGlobalMinLength(minLength)
+                .setGlobalMaxLength(maxLength)
                 .setRandom(fixedRandom)
                 .build();
 
