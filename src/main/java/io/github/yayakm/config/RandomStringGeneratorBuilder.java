@@ -28,7 +28,7 @@ import java.util.Random;
  *
  * @author yaya.kamissokho@gmail.com
  */
-public class RandomTextGeneratorBuilder {
+public class RandomStringGeneratorBuilder {
     private AutomatonHandler automatonHandler;
     private Random random;
 
@@ -38,8 +38,8 @@ public class RandomTextGeneratorBuilder {
      *
      * @return A new instance of RandomTextGeneratorBuilder ready for configuration.
      */
-    public static RandomTextGeneratorBuilder builder() {
-        RandomTextGeneratorBuilder builder = new RandomTextGeneratorBuilder();
+    public static RandomStringGeneratorBuilder builder() {
+        RandomStringGeneratorBuilder builder = new RandomStringGeneratorBuilder();
         builder.automatonHandler = new AutomatonHandler();
         builder.random = new Random();
         return builder;
@@ -51,7 +51,7 @@ public class RandomTextGeneratorBuilder {
      * @param regex The regular expression to set.
      * @return The builder instance to continue the building process.
      */
-    public RandomTextGeneratorBuilder setRegExp(String regex) {
+    public RandomStringGeneratorBuilder setRegExp(String regex) {
         this.automatonHandler.setRegExp(regex);
         return this;
     }
@@ -62,7 +62,7 @@ public class RandomTextGeneratorBuilder {
      * @param value The maximum length of the text.
      * @return The builder instance to continue the building process.
      */
-    public RandomTextGeneratorBuilder setMaxLength(int value) {
+    public RandomStringGeneratorBuilder setMaxLength(int value) {
         this.automatonHandler.setGlobalMaxLength(value);
         return this;
     }
@@ -73,7 +73,7 @@ public class RandomTextGeneratorBuilder {
      * @param value The minimum length of the text.
      * @return The builder instance to continue the building process.
      */
-    public RandomTextGeneratorBuilder setMinLength(int value) {
+    public RandomStringGeneratorBuilder setMinLength(int value) {
         this.automatonHandler.setGlobalMinLength(value);
         return this;
     }
@@ -85,13 +85,13 @@ public class RandomTextGeneratorBuilder {
      * @param random The Random instance to use.
      * @return The builder instance to continue the building process.
      */
-    public RandomTextGeneratorBuilder setRandom(Random random) {
+    public RandomStringGeneratorBuilder setRandom(Random random) {
         this.random = random;
         return this;
     }
 
     /**
-     * Finalizes the building process and returns a new instance of RandomTextGenerator
+     * Finalizes the building process and returns a new instance of RandomStringGenerator
      * configured with the specified settings.
      *
      * @return A new instance of RandomTextGenerator.

@@ -27,12 +27,6 @@ package io.github.yayakm.exception;
  */
 public class RegexStringGeneratorException extends IllegalArgumentException {
 
-    /**
-     * Constructs a new TextGenerationException with a specific message describing the error.
-     *
-     * @param message The detailed message that explains the reason for the exception.
-     *                This message is saved for later retrieval by the {@link Throwable#getMessage()} method.
-     */
     public RegexStringGeneratorException(String message) {
         super(message);
     }
