@@ -29,7 +29,7 @@ To integrate **RegexStringGenerator** into your Maven project, add the following
 Use the following code to generate random text based on a simple regular expression:
 
 ```java
-import com.yk.regex.generator.RegexStringGenerator;
+import io.yk.regex.generator.RegexStringGenerator;
 
 public class Example {
     public static void main(String[] args) {
@@ -45,7 +45,7 @@ public class Example {
 Use the following code to generate text with specific length constraints:
 
 ```java
-import com.yk.regex.generator.RegexStringGenerator;
+import io.yk.regex.core.RegexStringGenerator;
 
 public class Example {
     public static void main(String[] args) {
@@ -63,7 +63,7 @@ public class Example {
 ```
 
 ```java
-import com.yk.regex.generator.RegexStringGenerator;
+import io.yk.regex.core.RegexStringGenerator;
 
 public class Example {
     public static void main(String[] args) {
@@ -76,7 +76,7 @@ public class Example {
 ```
 
 ```java
-import com.yk.regex.generator.RegexStringGenerator;
+import io.yk.regex.core.RegexStringGenerator;
 
 public class Example {
     public static void main(String[] args) {
