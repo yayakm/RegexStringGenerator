@@ -15,12 +15,12 @@
  */
 package io.github.yayakm.core;
 
-import io.github.yayakm.config.AutomatonProperties;
-import io.github.yayakm.exception.RegexStringGeneratorException;
-import io.github.yayakm.config.AutomatonHandler;
-import io.github.yayakm.util.Length;
 import dk.brics.automaton.State;
 import dk.brics.automaton.Transition;
+import io.github.yayakm.config.AutomatonHandler;
+import io.github.yayakm.config.AutomatonProperties;
+import io.github.yayakm.exception.RegexStringGeneratorException;
+import io.github.yayakm.util.Length;
 
 import java.util.List;
 import java.util.Random;
@@ -28,7 +28,7 @@ import java.util.Random;
 /**
  * @author yaya.kamissokho@gmail.com
  */
-public class RegexStringGenerator implements StringGenerator{
+public class RegexStringGenerator implements StringGenerator {
 
     private AutomatonHandler automatonHandler;
     private Random random;
@@ -101,7 +101,7 @@ public class RegexStringGenerator implements StringGenerator{
 
     /**
      * Generates a string that matches the specified regular expression constraints and falls within a given length range.
-     *
+     * <p>
      * This method navigates through the automaton starting from the initial state and randomly selects transitions
      * to generate a character sequence. It continues to build the string until it reaches the specified maximum length
      * or until there are no further transitions available from the current state. If the generated string meets the
@@ -111,8 +111,8 @@ public class RegexStringGenerator implements StringGenerator{
      * @param minLength the minimum length of the generated string that is considered acceptable
      * @param maxLength the maximum length of the generated string after which no further characters are added
      * @return a string that matches the regular expression and whose length is between the specified min and max lengths
-     *         If no valid string can be generated within these constraints, it returns an empty string or the partially
-     *         generated string up to the point of failure.
+     * If no valid string can be generated within these constraints, it returns an empty string or the partially
+     * generated string up to the point of failure.
      */
     private String generate(int minLength, int maxLength) {
         // Retrieve the initial state of the automaton which represents the starting point for generating the string.
@@ -178,6 +178,7 @@ public class RegexStringGenerator implements StringGenerator{
      *
      * @param regex the regular expression to generate the automaton
      */
+    @Override
     public void setRegExp(String regex) {
         this.regex = regex;
         automatonHandler.setRegExp(regex);

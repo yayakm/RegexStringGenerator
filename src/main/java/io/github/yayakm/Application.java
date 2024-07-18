@@ -43,7 +43,7 @@ public class Application {
         System.out.println(generator.generateString(10, 10));
 
         // Using the generator to create different text configurations and generate outputs.
-        RegexStringGenerator generator2 = new RegexStringGenerator(new Random());
+        StringGenerator generator2 = new RegexStringGenerator(new Random());
         generator2.setRegExp("[a-z]{10,29}");
         String text1 = generator2.generateString(10, 20);
         System.out.println(text1);
@@ -53,12 +53,12 @@ public class Application {
         System.out.println(text2);
 
         // Generator for generating text with a simple digit regex and minimal length variation.
-        RegexStringGenerator generator3 = new RegexStringGenerator("[0-9]");
+        StringGenerator generator3 = new RegexStringGenerator("[0-9]");
         System.out.println(generator3.generateString(5, 6));
 
         // Example for generating a very large text, commented out to avoid execution delays or memory issues.
         // Uncomment the following lines to test with very large lengths.
-        RegexStringGenerator generator4 = new RegexStringGenerator("[0-9]{1000}-[0-9]{50}");
+        StringGenerator generator4 = new RegexStringGenerator("[0-9]{1000}-[0-9]{50}");
         System.out.println(generator4.generateString(1051,1051));
     }
 }

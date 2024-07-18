@@ -16,7 +16,7 @@
 package io.github.yayakm;
 
 import io.github.yayakm.config.RandomStringGeneratorBuilder;
-import io.github.yayakm.core.RegexStringGenerator;
+import io.github.yayakm.core.StringGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
@@ -24,7 +24,6 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
  * @author yaya.kamissokho@gmail.com
  */
 class RegexStringGeneratorBuilderTest {
@@ -36,7 +35,7 @@ class RegexStringGeneratorBuilderTest {
         int minLength = 5;
         int maxLength = 10;
 
-        RegexStringGenerator generator = RandomStringGeneratorBuilder.builder()
+        StringGenerator generator = RandomStringGeneratorBuilder.builder()
                 .setRegExp(regex)
                 .setGlobalMinLength(minLength)
                 .setGlobalMaxLength(maxLength)
@@ -54,7 +53,7 @@ class RegexStringGeneratorBuilderTest {
         int minLength = 3;
         int maxLength = 3;
 
-        RegexStringGenerator generator = RandomStringGeneratorBuilder.builder()
+        StringGenerator generator = RandomStringGeneratorBuilder.builder()
                 .setRegExp(regex)
                 .setGlobalMinLength(minLength)
                 .setGlobalMaxLength(maxLength)
@@ -73,7 +72,7 @@ class RegexStringGeneratorBuilderTest {
         int minLength = 5;
         int maxLength = 5;
 
-        RegexStringGenerator generator = RandomStringGeneratorBuilder.builder()
+        StringGenerator generator = RandomStringGeneratorBuilder.builder()
                 .setRegExp(regex)
                 .setGlobalMinLength(minLength)
                 .setGlobalMaxLength(maxLength)

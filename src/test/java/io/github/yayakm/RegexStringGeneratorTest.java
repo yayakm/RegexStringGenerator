@@ -18,15 +18,15 @@ package io.github.yayakm;
 import io.github.yayakm.config.AutomatonHandler;
 import io.github.yayakm.config.AutomatonProperties;
 import io.github.yayakm.core.RegexStringGenerator;
+import io.github.yayakm.core.StringGenerator;
 import io.github.yayakm.exception.RegexStringGeneratorException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
- *
  * @author yaya.kamissokho@gmail.com
  */
 class RegexStringGeneratorTest {
@@ -34,7 +34,7 @@ class RegexStringGeneratorTest {
     @Test
     void generateString_WithValidRegex_ReturnsMatchingString() {
         AutomatonHandler handler = new AutomatonHandler("abc"); // Assuming AutomatonHandler can handle this directly
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
         String text = generator.generateString(3, 3);
         assertEquals("abc", text);
@@ -47,7 +47,7 @@ class RegexStringGeneratorTest {
     @Test
     void generateString_WithInvalidRegex_ThrowsException() {
         AutomatonHandler handler = new AutomatonHandler("[z-a]"); // Invalid range
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
         assertThrows(IllegalArgumentException.class, () -> generator.generateString(1, 1));
     }
@@ -55,7 +55,7 @@ class RegexStringGeneratorTest {
     @Test
     void generateString_WithComplexRegex_ReturnsCorrectLength() {
         AutomatonHandler handler = new AutomatonHandler("[a-z]{5,10}");
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
         String text = generator.generateString(5, 10);
         assertTrue(text.matches("[a-z]{5,10}") && text.length() >= 5 && text.length() <= 10);
@@ -64,7 +64,7 @@ class RegexStringGeneratorTest {
     @Test
     void generateString_WithLengthMismatch_ThrowsException() {
         AutomatonHandler handler = new AutomatonHandler("a{5}");
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
         assertThrows(RegexStringGeneratorException.class, () -> generator.generateString(3, 4));
     }
@@ -72,7 +72,7 @@ class RegexStringGeneratorTest {
     @Test
     void generateString_WhenAutomatonIsInfinite_ThrowsException() {
         AutomatonHandler handler = new AutomatonHandler("a*");
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
         assertThrows(RegexStringGeneratorException.class, () -> generator.generateString(1, 1000));
     }
@@ -80,7 +80,7 @@ class RegexStringGeneratorTest {
     @Test
     void getAutomatonProperties_ReturnsCorrectProperties() {
         AutomatonHandler handler = new AutomatonHandler("a*");
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
         AutomatonProperties props = generator.getAutomatonProperties();
         assertNotNull(props);

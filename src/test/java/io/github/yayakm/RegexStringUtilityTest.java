@@ -18,10 +18,10 @@ package io.github.yayakm;
 import io.github.yayakm.config.AutomatonProperties;
 import io.github.yayakm.core.RegexStringUtility;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
  * @author yaya.kamissokho@gmail.com
  */
 class RegexStringUtilityTest {

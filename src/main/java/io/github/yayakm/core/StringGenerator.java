@@ -66,4 +66,6 @@ public interface StringGenerator {
      * @return AutomatonProperties containing the details about the automaton's structure.
      */
     AutomatonProperties getAutomatonProperties();
+
+    void setRegExp(String regex);
 }
