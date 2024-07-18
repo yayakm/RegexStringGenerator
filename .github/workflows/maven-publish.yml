@@ -1,0 +1,26 @@
+name: Publish package to the Maven Central
+on:
+  release:
+    types: [created]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v4
+        with:
+          java-version: '1.8'
+          distribution: 'temurin'
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ GPG_SIGNING_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+      - name: Publish to the Maven Central Repository
+        run: mvn -P release --batch-mode deploy -DskipTests
+        env:
+          MAVEN_USERNAME: ${{ MAVEN_USERNAME }}
+          MAVEN_PASSWORD: ${{ MAVEN_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ MAVEN_GPG_PASSPHRASE }}
