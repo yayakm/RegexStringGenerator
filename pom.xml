@@ -81,7 +81,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
-						<version>3.3.0</version>
+						<version>3.2.1</version>
 						<executions>
 							<execution>
 								<id>attach-sources</id>
@@ -95,7 +95,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>3.6.3</version>
+						<version>2.9.1</version>
 						<executions>
 							<execution>
 								<id>attach-javadoc</id>
@@ -104,17 +104,14 @@
 								</goals>
 							</execution>
 						</executions>
-						<configuration>
-							<stylesheet>java</stylesheet>
-							<doclint>none</doclint>
-						</configuration>
 					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>3.1.0</version>
+						<version>1.6</version>
 						<executions>
 							<execution>
+								<keyname>0xCE677916</keyname>
 								<id>sign-artifacts</id>
 								<phase>verify</phase>
 								<goals>
