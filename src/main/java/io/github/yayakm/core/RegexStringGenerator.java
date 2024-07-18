@@ -15,23 +15,20 @@
  */
 package io.github.yayakm.core;
 
-import io.github.yayakm.config.AutomatonProperties;
-import io.github.yayakm.exception.RegexStringGeneratorException;
-import io.github.yayakm.config.AutomatonHandler;
-import io.github.yayakm.util.Length;
 import dk.brics.automaton.State;
 import dk.brics.automaton.Transition;
+import io.github.yayakm.config.AutomatonHandler;
+import io.github.yayakm.config.AutomatonProperties;
+import io.github.yayakm.exception.RegexStringGeneratorException;
+import io.github.yayakm.util.Length;
 
 import java.util.List;
 import java.util.Random;
 
 /**
- * Generates random text that conforms to a specified regular expression and length constraints.
- * This generator utilizes an Automaton to ensure that the produced text adheres to the regex pattern.
- *
  * @author yaya.kamissokho@gmail.com
  */
-public class RegexStringGenerator {
+public class RegexStringGenerator implements StringGenerator {
 
     private AutomatonHandler automatonHandler;
     private Random random;
@@ -68,59 +65,95 @@ public class RegexStringGenerator {
         setRegExp(regex);
     }
 
-    /**
-     * Constructs a RandomTextGenerator with a specific regex pattern and a new random source.
-     *
-     * @param regex the regex pattern to generate text for
-     */
     public RegexStringGenerator(String regex) {
         this(regex, new Random());
     }
 
-    /**
-     * Sets the regex pattern for the automaton handler.
-     *
-     * @param regex the regular expression to generate the automaton
-     */
-    public void setRegExp(String regex) {
-        this.regex = regex;
-        automatonHandler.setRegExp(regex);
-    }
-
-    /**
-     * Generates text that matches the specified regex and is within the defined length range.
-     *
-     * @param minLength the minimum length of generated text
-     * @param maxLength the maximum length of generated text
-     * @return the generated text
-     * @throws RegexStringGeneratorException if unable to generate valid text within the specified constraints
-     */
-    public String generateText(int minLength, int maxLength) throws RegexStringGeneratorException {
+    @Override
+    public String generateString(int minLength, int maxLength) throws RegexStringGeneratorException {
         assertLengthCompatible(minLength, maxLength);
         return generate(minLength, maxLength);
     }
 
-    private String generate(int minLength, int maxLength) throws RegexStringGeneratorException {
+
+    @Override
+    public String generateString() throws RegexStringGeneratorException {
+        return generate(automatonHandler.getGlobalMinLength(), automatonHandler.getGlobalMaxLength());
+    }
+
+    @Override
+    public String generateString(String regex) throws RegexStringGeneratorException {
+        setRegExp(regex);
+        return generateString(automatonHandler.getGlobalMinLength(), automatonHandler.getGlobalMaxLength());
+    }
+
+    @Override
+    public String generateString(String regex, int minLength, int maxLength) throws RegexStringGeneratorException {
+        setRegExp(regex);
+        return generateString(minLength, maxLength);
+    }
+
+
+    @Override
+    public AutomatonProperties getAutomatonProperties() {
+        return automatonHandler.getAutomatonProperties();
+    }
+
+    /**
+     * Generates a string that matches the specified regular expression constraints and falls within a given length range.
+     * <p>
+     * This method navigates through the automaton starting from the initial state and randomly selects transitions
+     * to generate a character sequence. It continues to build the string until it reaches the specified maximum length
+     * or until there are no further transitions available from the current state. If the generated string meets the
+     * minimum length requirement and is accepted by the automaton, it is returned. Otherwise, the method continues
+     * until the maximum length is reached or no valid transitions are left.
+     *
+     * @param minLength the minimum length of the generated string that is considered acceptable
+     * @param maxLength the maximum length of the generated string after which no further characters are added
+     * @return a string that matches the regular expression and whose length is between the specified min and max lengths
+     * If no valid string can be generated within these constraints, it returns an empty string or the partially
+     * generated string up to the point of failure.
+     */
+    private String generate(int minLength, int maxLength) {
+        // Retrieve the initial state of the automaton which represents the starting point for generating the string.
         State state = automatonHandler.getAutomaton().getInitialState();
+
+        // List to hold the possible transitions from the current state.
         List<Transition> transitions;
+
+        // StringBuilder to build the resulting string dynamically.
         StringBuilder result = new StringBuilder();
+
+        // Continue to build the string until it reaches the specified maximum length.
         while (result.length() < maxLength) {
+            // Get sorted transitions from the current state for consistent selection.
             transitions = state.getSortedTransitions(false);
+
+            // If no transitions are available from the current state, break the loop as no further characters can be added.
             if (transitions.isEmpty()) {
                 break;
             }
 
+            // Randomly select one of the available transitions.
             Transition selectedTransition = transitions.get(random.nextInt(transitions.size()));
+
+            // Generate a random character that is valid for the selected transition.
             char randomChar = (char) (selectedTransition.getMin() + random.nextInt(selectedTransition.getMax() - selectedTransition.getMin() + 1));
 
+            // Append the generated character to the result.
             result.append(randomChar);
+
+            // Move to the destination state of the selected transition.
             state = selectedTransition.getDest();
 
+            // Check if the current string is acceptable:
+            // It must be at least the minimum length and must be accepted by the automaton's final state.
             if (result.length() >= minLength && state.isAccept() && result.toString().matches(automatonHandler.getAutomaton().toString())) {
                 return result.toString();
             }
         }
 
+        // Return the generated string, which may be incomplete if it didn't meet the acceptance criteria.
         return result.toString();
     }
 
@@ -141,43 +174,13 @@ public class RegexStringGenerator {
     }
 
     /**
-     * @return the generated text
-     * @throws RegexStringGeneratorException if unable to generate valid text within the global constraints
-     */
-    public String generateText() throws RegexStringGeneratorException {
-        return generate(automatonHandler.getGlobalMinLength(), automatonHandler.getGlobalMaxLength());
-    }
-
-    /**
-     * Retrieves detailed properties of the automaton derived from the current regex.
+     * Sets the regex pattern for the automaton handler.
      *
-     * @return AutomatonProperties containing the details about the automaton's structure.
+     * @param regex the regular expression to generate the automaton
      */
-    public AutomatonProperties getAutomatonProperties() {
-        return automatonHandler.getAutomatonProperties();
-    }
-
-    /**
-     * Generates text using the global minimum and maximum lengths set in the AutomatonHandler.
-     *
-     * @param regex
-     * @throws RegexStringGeneratorException if unable to generate valid text within the global constraints
-     */
-    public String generateText(String regex) throws RegexStringGeneratorException {
-        setRegExp(regex);
-        return generateText(automatonHandler.getGlobalMinLength(), automatonHandler.getGlobalMaxLength());
-    }
-
-    /**
-     * Generates text using the global minimum and maximum lengths set in the AutomatonHandler.
-     *
-     * @param regex
-     * @param minLength the minimum length of generated text
-     * @param maxLength the maximum length of generated text
-     * @throws RegexStringGeneratorException if unable to generate valid text within the global constraints
-     */
-    public String generateText(String regex, int minLength, int maxLength) throws RegexStringGeneratorException {
-        setRegExp(regex);
-        return generateText(minLength, maxLength);
+    @Override
+    public void setRegExp(String regex) {
+        this.regex = regex;
+        automatonHandler.setRegExp(regex);
     }
 }

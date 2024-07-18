@@ -30,7 +30,6 @@ import java.util.Random;
 public class RegexStringUtility {
     private static final Random random = new Random();
 
-    // Private constructor to prevent instantiation
     private RegexStringUtility() {
     }
 
@@ -44,7 +43,7 @@ public class RegexStringUtility {
      */
     public static String generateString(String regex, int minLength, int maxLength) {
         RegexStringGenerator generator = new RegexStringGenerator(regex, random);
-        return generator.generateText(minLength, maxLength);
+        return generator.generateString(minLength, maxLength);
     }
 
     /**
@@ -56,7 +55,7 @@ public class RegexStringUtility {
      */
     public static String generateString(String regex) {
         RegexStringGenerator generator = new RegexStringGenerator(regex);
-        return generator.generateText();
+        return generator.generateString();
     }
 
     /**

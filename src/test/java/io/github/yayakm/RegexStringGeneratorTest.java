@@ -18,69 +18,69 @@ package io.github.yayakm;
 import io.github.yayakm.config.AutomatonHandler;
 import io.github.yayakm.config.AutomatonProperties;
 import io.github.yayakm.core.RegexStringGenerator;
+import io.github.yayakm.core.StringGenerator;
 import io.github.yayakm.exception.RegexStringGeneratorException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
- *
  * @author yaya.kamissokho@gmail.com
  */
 class RegexStringGeneratorTest {
 
     @Test
-    void generateText_WithValidRegex_ReturnsMatchingString() {
+    void generateString_WithValidRegex_ReturnsMatchingString() {
         AutomatonHandler handler = new AutomatonHandler("abc"); // Assuming AutomatonHandler can handle this directly
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
-        String text = generator.generateText(3, 3);
+        String text = generator.generateString(3, 3);
         assertEquals("abc", text);
 
         generator.setRegExp("[a-z]{5,10}");
-        text = generator.generateText();
+        text = generator.generateString();
         assertTrue(text.matches("[a-z]{5,10}") && text.length() >= 5 && text.length() <= 10);
     }
 
     @Test
-    void generateText_WithInvalidRegex_ThrowsException() {
+    void generateString_WithInvalidRegex_ThrowsException() {
         AutomatonHandler handler = new AutomatonHandler("[z-a]"); // Invalid range
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
-        assertThrows(IllegalArgumentException.class, () -> generator.generateText(1, 1));
+        assertThrows(IllegalArgumentException.class, () -> generator.generateString(1, 1));
     }
 
     @Test
-    void generateText_WithComplexRegex_ReturnsCorrectLength() {
+    void generateString_WithComplexRegex_ReturnsCorrectLength() {
         AutomatonHandler handler = new AutomatonHandler("[a-z]{5,10}");
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
-        String text = generator.generateText(5, 10);
+        String text = generator.generateString(5, 10);
         assertTrue(text.matches("[a-z]{5,10}") && text.length() >= 5 && text.length() <= 10);
     }
 
     @Test
-    void generateText_WithLengthMismatch_ThrowsException() {
+    void generateString_WithLengthMismatch_ThrowsException() {
         AutomatonHandler handler = new AutomatonHandler("a{5}");
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
-        assertThrows(RegexStringGeneratorException.class, () -> generator.generateText(3, 4));
+        assertThrows(RegexStringGeneratorException.class, () -> generator.generateString(3, 4));
     }
 
     @Test
-    void generateText_WhenAutomatonIsInfinite_ThrowsException() {
+    void generateString_WhenAutomatonIsInfinite_ThrowsException() {
         AutomatonHandler handler = new AutomatonHandler("a*");
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
-        assertThrows(RegexStringGeneratorException.class, () -> generator.generateText(1, 1000));
+        assertThrows(RegexStringGeneratorException.class, () -> generator.generateString(1, 1000));
     }
 
     @Test
     void getAutomatonProperties_ReturnsCorrectProperties() {
         AutomatonHandler handler = new AutomatonHandler("a*");
-        RegexStringGenerator generator = new RegexStringGenerator(handler, new Random());
+        StringGenerator generator = new RegexStringGenerator(handler, new Random());
 
         AutomatonProperties props = generator.getAutomatonProperties();
         assertNotNull(props);

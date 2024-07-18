@@ -29,12 +29,12 @@ To integrate **RegexStringGenerator** into your Maven project, add the following
 Use the following code to generate random text based on a simple regular expression:
 
 ```java
-import com.yk.regex.generator.RegexStringGenerator;
+import io.yk.regex.generator.RegexStringGenerator;
 
 public class Example {
     public static void main(String[] args) {
         String regex = "[a-z]{10}";
-        String generatedText = RegexStringGenerator.generateString(regex);
+        String generatedText = RegexStringUtility.generateString(regex);
         System.out.println("Generated Text: " + generatedText);
     }
 }
@@ -45,13 +45,46 @@ public class Example {
 Use the following code to generate text with specific length constraints:
 
 ```java
-import com.yk.regex.generator.RegexStringGenerator;
+import io.yk.regex.core.RegexStringGenerator;
 
 public class Example {
     public static void main(String[] args) {
-        String regex = "\d{3}-\d{2}-\d{4}";
-        String generatedText = RegexStringGenerator.generateString(regex, 5, 15);
-        System.out.println("Generated Text: " + generatedText);
+        // Create a generator with specific regex and length constraints using a builder pattern.
+        StringGenerator generator = RandomStringGeneratorBuilder.builder()
+                .setRegExp("[a-z]{10}")
+                .setGlobalMaxLength(15)
+                .setRandom(new Random())
+                .build();
+
+        // Generate and print a text of exact length 10 matching the regex "[a-z]{10}".
+        System.out.println(generator.generateString(10, 10));
+    }
+}
+```
+
+```java
+import io.yk.regex.core.RegexStringGenerator;
+
+public class Example {
+    public static void main(String[] args) {
+        // Example for generating a very large text, commented out to avoid execution delays or memory issues.
+        // Uncomment the following lines to test with very large lengths.
+        RegexStringGenerator generator4 = new RegexStringGenerator("[0-9]{1000}-[0-9]{50}");
+        System.out.println(generator4.generateString(1051,1051));
+    }
+}
+```
+
+```java
+import io.yk.regex.core.RegexStringGenerator;
+
+public class Example {
+    public static void main(String[] args) {
+        // Using the generator to create different text configurations and generate outputs.
+        RegexStringGenerator generator2 = new RegexStringGenerator(new Random());
+        generator2.setRegExp("[a-z]{10,29}");
+        String text1 = generator2.generateString(10, 20);
+        System.out.println(text1);
     }
 }
 ```

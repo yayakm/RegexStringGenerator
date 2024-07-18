@@ -15,8 +15,8 @@
  */
 package io.github.yayakm;
 
-import io.github.yayakm.config.RandomTextGeneratorBuilder;
-import io.github.yayakm.core.RegexStringGenerator;
+import io.github.yayakm.config.RandomStringGeneratorBuilder;
+import io.github.yayakm.core.StringGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
@@ -24,7 +24,6 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
  * @author yaya.kamissokho@gmail.com
  */
 class RegexStringGeneratorBuilderTest {
@@ -36,14 +35,14 @@ class RegexStringGeneratorBuilderTest {
         int minLength = 5;
         int maxLength = 10;
 
-        RegexStringGenerator generator = RandomTextGeneratorBuilder.builder()
+        StringGenerator generator = RandomStringGeneratorBuilder.builder()
                 .setRegExp(regex)
-                .setMinLength(minLength)
-                .setMaxLength(maxLength)
+                .setGlobalMinLength(minLength)
+                .setGlobalMaxLength(maxLength)
                 .setRandom(random)
                 .build();
 
-        String generatedText = generator.generateText(minLength, maxLength);
+        String generatedText = generator.generateString(minLength, maxLength);
         assertNotNull(generatedText);
         assertTrue(generatedText.matches(regex) && generatedText.length() >= minLength && generatedText.length() <= maxLength);
     }
@@ -54,13 +53,13 @@ class RegexStringGeneratorBuilderTest {
         int minLength = 3;
         int maxLength = 3;
 
-        RegexStringGenerator generator = RandomTextGeneratorBuilder.builder()
+        StringGenerator generator = RandomStringGeneratorBuilder.builder()
                 .setRegExp(regex)
-                .setMinLength(minLength)
-                .setMaxLength(maxLength)
+                .setGlobalMinLength(minLength)
+                .setGlobalMaxLength(maxLength)
                 .build();
 
-        String generatedText = generator.generateText(minLength, maxLength);
+        String generatedText = generator.generateString(minLength, maxLength);
         assertNotNull(generatedText);
         assertTrue(generatedText.matches(regex));
         assertEquals(minLength, generatedText.length());
@@ -73,15 +72,15 @@ class RegexStringGeneratorBuilderTest {
         int minLength = 5;
         int maxLength = 5;
 
-        RegexStringGenerator generator = RandomTextGeneratorBuilder.builder()
+        StringGenerator generator = RandomStringGeneratorBuilder.builder()
                 .setRegExp(regex)
-                .setMinLength(minLength)
-                .setMaxLength(maxLength)
+                .setGlobalMinLength(minLength)
+                .setGlobalMaxLength(maxLength)
                 .setRandom(fixedRandom)
                 .build();
 
-        String generatedText1 = generator.generateText(minLength, maxLength);
-        String generatedText2 = generator.generateText(minLength, maxLength);
+        String generatedText1 = generator.generateString(minLength, maxLength);
+        String generatedText2 = generator.generateString(minLength, maxLength);
 
         assertEquals(generatedText1.length(), generatedText2.length());
     }
