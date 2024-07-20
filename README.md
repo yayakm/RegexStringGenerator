@@ -2,13 +2,15 @@
 
 ## Description
 
-**RegexStringGenerator** is a Java library designed to generate random text that matches specified regular expressions. It is ideal for developers who need to create test data or dynamic content based on regular patterns.
+**RegexStringGenerator** is a versatile Java library designed to generate random text that matches specified regular expressions. This tool is invaluable for developers and testers who require dynamically generated data that adheres to specific patterns, such as creating unique IDs, keys under constraints, or any custom text format necessary for testing environments or data masking.
 
 ## Features
 
-- Generation of strings based on regular expressions.
-- Support for generating text with specific length constraints.
-- Extraction of automaton properties, such as the number of states and the expected text size.
+- **Dynamic Text Generation**: Produce strings precisely matching the nuances of any given regex pattern.
+- **Length Constraints**: Ability to specify exact length requirements for the generated strings, ensuring compliance with data standards or testing conditions.
+- **Property Extraction**: Before generating text, the library can analyze a regex to predict the properties of the text, such as potential length and structure. This pre-generation analysis helps in understanding the feasibility and limits of the regex pattern.
+- **Automaton Insights**: Retrieve underlying automaton properties, such as the number of states, which can be crucial for debugging or optimizing regex patterns.
+- **Versatile Use Cases**: Ideal for generating test data, user simulation inputs, or any scenario where pattern-specific string creation is needed. Particularly useful for generating structured data like IDs, codes, or user credentials under specific constraints.
 
 ## Installation
 
@@ -51,13 +53,13 @@ public class Example {
     public static void main(String[] args) {
         // Create a generator with specific regex and length constraints using a builder pattern.
         StringGenerator generator = RandomStringGeneratorBuilder.builder()
-                .setRegExp("[a-z]{10}")
-                .setGlobalMaxLength(15)
+                .setRegExp("[a-z]{10}-[a-z]{5,10}")
+                .setGlobalMaxLength(30)
                 .setRandom(new Random())
                 .build();
 
         // Generate and print a text of exact length 10 matching the regex "[a-z]{10}".
-        System.out.println(generator.generateString(10, 10));
+        System.out.println(generator.generateString());
     }
 }
 ```
@@ -69,7 +71,7 @@ public class Example {
     public static void main(String[] args) {
         // Example for generating a very large text, commented out to avoid execution delays or memory issues.
         // Uncomment the following lines to test with very large lengths.
-        RegexStringGenerator generator4 = new RegexStringGenerator("[0-9]{1000}-[0-9]{50}");
+        RegexStringGenerator generator4 = new RegexStringGenerator("[0-9]{1000}-[0-9]{50,100}");
         System.out.println(generator4.generateString(1051,1051));
     }
 }
@@ -82,9 +84,23 @@ public class Example {
     public static void main(String[] args) {
         // Using the generator to create different text configurations and generate outputs.
         RegexStringGenerator generator2 = new RegexStringGenerator(new Random());
-        generator2.setRegExp("[a-z]{10,29}");
+        generator2.setRegExp("[a-z]");
         String text1 = generator2.generateString(10, 20);
         System.out.println(text1);
+    }
+}
+```
+### Example with Property Extraction
+
+Use the following code to extract Property:
+
+```java
+import io.github.yayakm.core.RegexStringUtility;
+import io.yk.regex.core.RegexStringGenerator;
+
+public class Example {
+    public static void main(String[] args) {
+        AutomatonProperties automatonProperties = new RegexStringUtility.getAutomatonProperties("[a-z]{10}-[a-z]{5,10}");
     }
 }
 ```
