@@ -34,6 +34,8 @@ public class RegexStringGenerator implements StringGenerator {
     private Random random;
     private String regex;
 
+    public RegexStringGenerator() {}
+
     /**
      * Constructs a RandomTextGenerator with a specified AutomatonHandler and source of randomness.
      *
@@ -115,6 +117,9 @@ public class RegexStringGenerator implements StringGenerator {
      * generated string up to the point of failure.
      */
     private String generate(int minLength, int maxLength) {
+        // Ensure the automaton is properly initialized before proceeding.
+        this.automatonHandler.ensureAutomatonInitialized();
+
         // Retrieve the initial state of the automaton which represents the starting point for generating the string.
         State state = automatonHandler.getAutomaton().getInitialState();
 
