@@ -52,10 +52,6 @@ public class Application {
         String text2 = generator2.generateString(5, 5);
         System.out.println(text2);
 
-        // Generator for generating text with a simple digit regex and minimal length variation.
-        StringGenerator generator3 = new RegexStringGenerator("[0-9]");
-        System.out.println(generator3.generateString(5, 6));
-
         // Example for generating a very large text, commented out to avoid execution delays or memory issues.
         // Uncomment the following lines to test with very large lengths.
         StringGenerator generator4 = new RegexStringGenerator("[0-9]{1000}-[0-9]{50}");

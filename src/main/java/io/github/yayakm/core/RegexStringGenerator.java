@@ -34,7 +34,9 @@ public class RegexStringGenerator implements StringGenerator {
     private Random random;
     private String regex;
 
-    public RegexStringGenerator() {}
+    public RegexStringGenerator() {
+        this(new AutomatonHandler(), new Random());
+    }
 
     /**
      * Constructs a RandomTextGenerator with a specified AutomatonHandler and source of randomness.
@@ -63,8 +65,8 @@ public class RegexStringGenerator implements StringGenerator {
      * @param random the random generator for selecting transitions
      */
     public RegexStringGenerator(String regex, Random random) {
-        this(new AutomatonHandler(), random);
-        setRegExp(regex);
+        this(new AutomatonHandler(regex), random);
+        this.regex = regex;
     }
 
     public RegexStringGenerator(String regex) {
@@ -169,12 +171,27 @@ public class RegexStringGenerator implements StringGenerator {
      * @param maxLength the maximum length of the text
      */
     private void assertLengthCompatible(int minLength, int maxLength) {
+        assertMaxDesiredMaxLengthIsGreaterThanMinLength(minLength, maxLength);
         automatonHandler.ensureAutomatonIsFinite();
         Length expectedLength = automatonHandler.getExpectedLength();
-        if (expectedLength.getMax() == 1 && expectedLength.getMin() == expectedLength.getMin()) {
-            setRegExp("(" + regex + "){" + minLength + "," + maxLength + "}");
-        } else {
-            automatonHandler.validateTextGenerationCapacity(minLength, maxLength, expectedLength);
+
+        automatonHandler.validateTextGenerationCapacity(minLength, maxLength, expectedLength);
+    }
+
+    /**
+     * Asserts that the maximum desired length is greater than or equal to the minimum length.
+     * This method is intended to prevent logical errors in length specification by ensuring
+     * that the maxLength is not set lower than minLength.
+     *
+     * @param minLength the minimum length constraint for the string
+     * @param maxLength the maximum length constraint for the string
+     * @throws RegexStringGeneratorException if the minimum length is greater than the maximum length
+     */
+    private void assertMaxDesiredMaxLengthIsGreaterThanMinLength(int minLength, int maxLength) {
+        if (minLength > maxLength) {
+            throw new RegexStringGeneratorException(
+                    String.format("Invalid length constraints: Minimum length (%d) cannot be greater than maximum length (%d).", minLength, maxLength)
+            );
         }
     }
 
@@ -187,5 +204,25 @@ public class RegexStringGenerator implements StringGenerator {
     public void setRegExp(String regex) {
         this.regex = regex;
         automatonHandler.setRegExp(regex);
+    }
+
+    @Override
+    public String getRegex() {
+        return regex;
+    }
+
+    @Override
+    public AutomatonHandler getAutomatonHandler() {
+        return automatonHandler;
+    }
+
+    @Override
+    public Random getRandom() {
+        return random;
+    }
+
+    @Override
+    public void setRandom(Random random) {
+        this.random = random;
     }
 }
