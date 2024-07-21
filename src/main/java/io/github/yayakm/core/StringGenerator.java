@@ -15,8 +15,11 @@
  */
 package io.github.yayakm.core;
 
+import io.github.yayakm.config.AutomatonHandler;
 import io.github.yayakm.config.AutomatonProperties;
 import io.github.yayakm.exception.RegexStringGeneratorException;
+
+import java.util.Random;
 
 /**
  * Generates random text that conforms to a specified regular expression and length constraints.
@@ -68,4 +71,12 @@ public interface StringGenerator {
     AutomatonProperties getAutomatonProperties();
 
     void setRegExp(String regex);
+
+    String getRegex();
+
+    AutomatonHandler getAutomatonHandler();
+
+    Random getRandom();
+
+    void setRandom(Random random);
 }
