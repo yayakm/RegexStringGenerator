@@ -31,7 +31,7 @@ To integrate **RegexStringGenerator** into your Maven project, add the following
 Use the following code to generate random text based on a simple regular expression:
 
 ```java
-import io.yk.regex.generator.RegexStringGenerator;
+import io.github.yayakm.core.RegexStringUtility;
 
 public class Example {
     public static void main(String[] args) {
@@ -47,7 +47,8 @@ public class Example {
 Use the following code to generate text with specific length constraints:
 
 ```java
-import io.yk.regex.core.RegexStringGenerator;
+import io.github.yayakm.core.StringGenerator;
+import io.github.yayakm.config.RandomStringGeneratorBuilder;
 
 public class Example {
     public static void main(String[] args) {
@@ -65,25 +66,28 @@ public class Example {
 ```
 
 ```java
-import io.yk.regex.core.RegexStringGenerator;
+import io.github.yayakm.core.RegexStringGenerator;
+import io.github.yayakm.core.StringGenerator;
 
 public class Example {
     public static void main(String[] args) {
         // Example for generating a very large text, commented out to avoid execution delays or memory issues.
         // Uncomment the following lines to test with very large lengths.
-        RegexStringGenerator generator4 = new RegexStringGenerator("[0-9]{1000}-[0-9]{50,100}");
+        StringGenerator generator4 = new RegexStringGenerator("[0-9]{1000}-[0-9]{50,100}");
         System.out.println(generator4.generateString(1051,1051));
     }
 }
 ```
 
 ```java
-import io.yk.regex.core.RegexStringGenerator;
+import io.github.yayakm.core.RegexStringGenerator;
+import io.github.yayakm.core.StringGenerator;
+import java.util.Random;
 
 public class Example {
     public static void main(String[] args) {
         // Using the generator to create different text configurations and generate outputs.
-        RegexStringGenerator generator2 = new RegexStringGenerator(new Random());
+        StringGenerator generator2 = new RegexStringGenerator(new Random());
         generator2.setRegExp("[a-z]");
         String text1 = generator2.generateString(10, 20);
         System.out.println(text1);
@@ -96,11 +100,11 @@ Use the following code to extract Property:
 
 ```java
 import io.github.yayakm.core.RegexStringUtility;
-import io.yk.regex.core.RegexStringGenerator;
+import io.github.yayakm.config.AutomatonProperties;
 
 public class Example {
     public static void main(String[] args) {
-        AutomatonProperties automatonProperties = new RegexStringUtility.getAutomatonProperties("[a-z]{10}-[a-z]{5,10}");
+        AutomatonProperties automatonProperties = RegexStringUtility.getAutomatonProperties("[a-z]{10}-[a-z]{5,10}");
     }
 }
 ```
