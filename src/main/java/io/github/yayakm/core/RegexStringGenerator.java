@@ -73,6 +73,29 @@ public class RegexStringGenerator implements StringGenerator {
         this(regex, new Random());
     }
 
+    /**
+     * Obtain the automaton properties of a regular expression
+     *
+     * @param regex the regex pattern to analyze
+     * @return Automaton properties with number of steps and other useful information
+     * @see AutomatonProperties
+     */
+    public static AutomatonProperties inspect(String regex) {
+        return new AutomatonHandler(regex).getAutomatonProperties();
+    }
+
+    /**
+     * Indicates if the supplied regex does not produce a finite automaton, meaning that in the absence of a character limit the
+     * regular expression may produce text of any length.
+     * This can be very useful to constrain password generation defined with a password policy including a regex.
+     *
+     * @param regex the regex pattern to analyze
+     * @return true if the regex is infinite (ex: ".*")
+     */
+    public static boolean isFinite(String regex) {
+        return RegexStringGenerator.inspect(regex).isFinite();
+    }
+
     @Override
     public String generateString(int minLength, int maxLength) throws RegexStringGeneratorException {
         assertLengthCompatible(minLength, maxLength);
