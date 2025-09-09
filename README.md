@@ -2,11 +2,16 @@
 
 ## Description
 
-**RegexStringGenerator** is a versatile Java library designed to generate random text that matches specified regular expressions. This tool is invaluable for developers and testers who require dynamically generated data that adheres to specific patterns, such as creating unique IDs, keys under constraints, or any custom text format necessary for testing environments or data masking.
+**RegexStringGenerator** is a versatile Java library designed to generate random text that matches specified regular expressions. 
+
+This project is robust against infinite regular expressions, offering introspection of the expression as an automaton with finite or infinite steps.
+
+This tool is invaluable for developers and testers who require dynamically generated data that adheres to specific patterns, such as creating unique IDs, keys under constraints, or any custom text format necessary for testing environments or data masking.
 
 ## Features
 
 - **Dynamic Text Generation**: Produce strings precisely matching the nuances of any given regex pattern.
+- **Expression introspection**: Ability to analyze the regex as an automaton and obtain information such as the cardinality of steps 
 - **Length Constraints**: Ability to specify exact length requirements for the generated strings, ensuring compliance with data standards or testing conditions.
 - **Property Extraction**: Before generating text, the library can analyze a regex to predict the properties of the text, such as potential length and structure. This pre-generation analysis helps in understanding the feasibility and limits of the regex pattern.
 - **Automaton Insights**: Retrieve underlying automaton properties, such as the number of states, which can be crucial for debugging or optimizing regex patterns.

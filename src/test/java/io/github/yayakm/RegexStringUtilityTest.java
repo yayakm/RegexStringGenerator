@@ -16,6 +16,7 @@
 package io.github.yayakm;
 
 import io.github.yayakm.config.AutomatonProperties;
+import io.github.yayakm.core.RegexStringGenerator;
 import io.github.yayakm.core.RegexStringUtility;
 import org.junit.jupiter.api.Test;
 
@@ -87,5 +88,19 @@ class RegexStringUtilityTest {
         AutomatonProperties props = RegexStringUtility.getAutomatonProperties(regex);
         assertNotNull(props);
         assertTrue(props.isFinite());
+    }
+
+    @Test
+    void testInspectRegex() {
+        String regex = "[abc]{3}";
+        final AutomatonProperties props = RegexStringGenerator.inspect(regex);
+        assertNotNull(props);
+        assertTrue(props.isFinite());
+    }
+
+    @Test
+    void testIsFiniteRegex() {
+        assertFalse(RegexStringGenerator.isFinite(".*"));
+        assertTrue(RegexStringGenerator.isFinite("[abc]{3}"));
     }
 }
